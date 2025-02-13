@@ -1,0 +1,14 @@
+{
+  "fmt": {
+    "semiColons": false,
+    "singleQuote": true
+  },
+  "tasks": {
+    "compile": "deno compile -EIRW --unstable-temporal vagtplan.ts",
+    "dev": "deno run -EIRW --unstable-temporal vagtplan.ts"
+  },
+  "imports": {
+    "ics": "npm:ics@^3.8.1",
+    "sheetjs": "https://cdn.sheetjs.com/xlsx-0.20.3/package/xlsx.mjs"
+  }
+}
