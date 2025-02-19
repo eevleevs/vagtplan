@@ -15,6 +15,8 @@ const months = [
   'november',
   'december',
 ]
+
+const ignoredTurns = /^(DATO|FRI|FERIE|BAGBAG)$/i
 const initials = /(^|\s)SG(\s|$)/i
 
 const ws = XLSX.readFile(Deno.args[0])
@@ -43,7 +45,7 @@ for (const row of rows.slice(2)) {
     minute: 15,
   }).withTimeZone('UTC')
   for (let i = dateColumn; i < columns.length; i++) {
-    if (columns[i].match(/^(DATO|FRI|FERIE|BAGBAG)$/i)) continue
+    if (columns[i].match(ignoredTurns)) continue
     if (!values[i].match(initials)) continue
     switch (columns[i]) {
       case 'BA.VA':
