@@ -36,7 +36,8 @@ export function main(path: string): EventAttributes[] {
     const day = parseInt(values[dateColumn])
     if (isNaN(day)) break
     let hours = 0
-    const start = Temporal.ZonedDateTime.from({
+
+    let start = Temporal.ZonedDateTime.from({
       timeZone: 'Europe/Copenhagen',
       year,
       month,
@@ -44,26 +45,45 @@ export function main(path: string): EventAttributes[] {
       hour: 8,
       minute: 15,
     }).withTimeZone('UTC')
+    if ([6, 7].includes(start.dayOfWeek)) {
+      start = start.add(Temporal.Duration.from({ minutes: 45 }))
+    }
+
     for (let i = dateColumn; i < columns.length; i++) {
       if (columns[i].match(ignoredTurns)) continue
       if (!values[i].match(initials)) continue
+      let minutes = 0
+
       switch (columns[i]) {
         case 'BA.VA':
-          hours = 24
+          switch (start.dayOfWeek) {
+            case 5:
+              hours = 24
+              minutes = 45
+              break
+            case 7:
+              hours = 23
+              minutes = 15
+              break
+            default:
+              hours = 24
+          }
           break
         case 'STUEGANG':
-          if (hours == 24) continue
+          if (hours > 8) continue
         default:
           hours = 8
       }
+
       events.push({
         start: [start.year, start.month, start.day, start.hour, start.minute],
         startInputType: 'utc',
-        duration: { hours, minutes: 0 },
+        duration: { hours, minutes },
         title: columns[i],
       })
     }
   }
+
   return events
 }
 

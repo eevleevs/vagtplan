@@ -50,13 +50,7 @@
   {
     "start": [2025, 3, 21, 7, 15],
     "startInputType": "utc",
-    "duration": { "hours": 8, "minutes": 0 },
-    "title": "STUEGANG"
-  },
-  {
-    "start": [2025, 3, 22, 8, 0],
-    "startInputType": "utc",
-    "duration": { "hours": 24, "minutes": 0 },
+    "duration": { "hours": 24, "minutes": 45 },
     "title": "BA.VA"
   },
   {
