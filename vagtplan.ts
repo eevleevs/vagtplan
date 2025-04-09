@@ -88,12 +88,13 @@ export function main(path: string): EventAttributes[] {
 }
 
 if (import.meta.main) {
-  if (!Deno.args[0]?.endsWith('.xlsx')) {
-    console.error('Usage: vagtplan.exe <xlsx file>')
+  const extension = /.xlsx?$/
+  if (!Deno.args[0]?.match(extension)) {
+    console.error('Usage: vagtplan.exe <excel file>')
     Deno.exit(1)
   }
   Deno.writeTextFileSync(
-    Deno.args[0].replace('.xlsx', '.ics'),
+    Deno.args[0].replace(extension, '.ics'),
     createEvents(main(Deno.args[0])).value ?? '',
   )
 }
