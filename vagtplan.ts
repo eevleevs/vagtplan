@@ -18,6 +18,7 @@ const months = [
 
 const ignoredTurns = /^(DATO|FRI|FERIE|BAGBAG)$/i
 const initials = /(^|\s)SG(\s|$)/i
+export const extension = /.xlsx?$/
 
 export function main(path: string): EventAttributes[] {
   const ws = XLSX.readFile(path)
@@ -88,7 +89,6 @@ export function main(path: string): EventAttributes[] {
 }
 
 if (import.meta.main) {
-  const extension = /.xlsx?$/
   if (!Deno.args[0]?.match(extension)) {
     console.error('Usage: vagtplan.exe <excel file>')
     Deno.exit(1)
