@@ -17,7 +17,7 @@ const months = [
 ]
 
 const ignoredTurns = /^(DATO|FRI|FERIE|BAGBAG)$/i
-const initials = /(^|\s)SG(\s|$)/i
+const initials = /\bSG\b/i
 export const extension = /\.xlsx?$/
 
 export function main(path: string): EventAttributes[] {
